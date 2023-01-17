@@ -11,14 +11,17 @@ from bot import Telebot
 
 from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+
+BASE_DIR = pathlib.Path(__file__).resolve().parent
+
+dotenv_path = BASE_DIR / '.env'
 if os.path.exists(dotenv_path):
     load_dotenv(dotenv_path)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 handler = RotatingFileHandler(
-    'bot_logs.log',
+    BASE_DIR / 'bot_logs.log',
     maxBytes=1000000,
     backupCount=5
 )
@@ -28,7 +31,6 @@ formatter = logging.Formatter(
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-BASE_DIR = pathlib.Path(__file__).resolve().parent
 BOT_ID = os.environ.get('BOT_ID')
 DB_NAME = os.environ.get('DB_NAME')
 DB_USER = os.environ.get('DB_USER')
