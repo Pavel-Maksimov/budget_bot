@@ -46,7 +46,7 @@ class Telebot:
     UPDATE_URL = ('GET /bot{0}/getUpdates?offset={1}&allowed_updates=["message"] HTTP/1.1\r\n'
                   'Host: api.telegram.org\r\n'
                   'Connection: close\r\n\r\n')
-    SEND_URL = ('GET /bot{0}/sendMessage?chat_id={1}&text={2} HTTP/1.1\r\n'
+    SEND_URL = ('GET /bot{0}/sendMessage?chat_id={1}&text={2}&reply_markup={3} HTTP/1.1\r\n'
                 'Host: api.telegram.org\r\n'
                 'Connection: close\r\n\r\n')
 
@@ -101,6 +101,7 @@ class Telebot:
             pass
         return data_dict
 
-    def send_reply(self, user_id, reply):
-        cmd = unicode(self.SEND_URL, 'utf-8').format(self.id, user_id, reply)
+    def send_reply(self, user_id, reply, markup=None):
+        markup = markup or ''
+        cmd = self.SEND_URL.format(self.id, user_id, reply, markup)
         self._make_request(cmd)
