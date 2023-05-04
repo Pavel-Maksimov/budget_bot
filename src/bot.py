@@ -11,6 +11,8 @@ import sys
 
 from dotenv import load_dotenv
 
+from db_connection import Database
+
 
 dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
 if os.path.exists(dotenv_path):
@@ -29,6 +31,7 @@ formatter = logging.Formatter(
 )
 handler.setFormatter(formatter)
 logger.addHandler(handler)
+
 
 class Telebot:
     """
@@ -100,6 +103,14 @@ class Telebot:
         except KeyError:
             pass
         return data_dict
+    
+    def start_listening(self):
+        database = Database()
+        self.offset = database.read_offset()
+        while True:
+            res = self.check_updates()
+            if res and res["ok"]:
+                pass
 
     def send_reply(self, user_id, reply, markup=None):
         markup = markup or ''

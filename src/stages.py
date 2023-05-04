@@ -19,22 +19,6 @@ class Stage:
         pass
 
 
-class TypeStage(Stage):
-    keyboard = json.dumps(
-        create_keyboard(2, settings.RECORD_TYPES),
-        ensure_ascii=True
-    )
-    message = "Выберите тип записи"
-    next = Stage
-
-    def get_response(self, response, record: Record):
-        record.type = response
-        if record.type == "доход":
-            self.next = IncomeCategoryStage
-        elif record.type == "расход":
-            self.next = OutcomeCategoryStage
-
-
 class AmountStage(Stage):
     keyboard = None
     message = "Введите сумму"
@@ -67,3 +51,19 @@ class OutcomeCategoryStage(Stage):
 
     def get_response(self, response, record: Record):
         record.category = response
+
+
+class TypeStage(Stage):
+    keyboard = json.dumps(
+        create_keyboard(2, settings.RECORD_TYPES),
+        ensure_ascii=True
+    )
+    message = "Выберите тип записи"
+    next = Stage
+
+    def get_response(self, response, record: Record):
+        record.type = response
+        if record.type == "доход":
+            self.next = IncomeCategoryStage
+        elif record.type == "расход":
+            self.next = OutcomeCategoryStage

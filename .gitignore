@@ -1,9 +1,5 @@
 /venv/
 .env
-spends.txt
-offset.txt
 bot_logs.log*
-python_errors.txt
-train.py
 .idea*
 /__pycache__/

@@ -1,3 +1,4 @@
+from db_connection import Database
 from record import Record
 import stages
 
@@ -22,7 +23,7 @@ class UserProcess:
             self.stop_process()
 
     def save_record(self):
-        self.record.save()
+        Database().write_record(self.record)
         self.bot.send_reply(
             user_id=self.user_id,
             reply="Записано!"

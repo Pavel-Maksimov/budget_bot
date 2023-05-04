@@ -3,7 +3,7 @@ import pathlib
 
 from dotenv import load_dotenv
 
-BASE_DIR = pathlib.Path(__file__).resolve().parent
+BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
 
 dotenv_path = BASE_DIR / '.env'
 if os.path.exists(dotenv_path):
@@ -40,3 +40,8 @@ CATEGORIES = {
     "доход": INCOME_CATEGORIES,
     "расход": OUTCOME_CATEGORIES
 }
+
+TABLES = {
+            "доход": "incomes",
+            "расход": "spends"
+        }
