@@ -1,4 +1,5 @@
 from process import UserProcess
+from stages import TypeStage, CategoryStage, AmountStage
 
 
 class Dispatcher:
@@ -7,8 +8,8 @@ class Dispatcher:
     def get_message(self, bot, message):
         user_id = message["from"]["id"]
         if user_id not in self.started_processes:
-            user_id = message["from"]["id"]
-            process = UserProcess(bot, self, user_id)
+            program = [TypeStage, CategoryStage, AmountStage]
+            process = UserProcess(bot, self, user_id, program)
             self.started_processes[user_id] = process
         else:
             self.started_processes[user_id].process_message(message["text"])

@@ -1,23 +1,34 @@
 from db_connection import Database
-from record import Record
+from models import Record
 import stages
 
 
 class UserProcess:
-    def __init__(self, bot, dispatcher, user_id):
+    def __init__(self, bot, dispatcher, user_id, program: list[stages.Stage]):
         self.dispatcher = dispatcher
         self.bot = bot
         self.user_id = user_id
         self.record = Record(user_id=user_id)
-        self.state = stages.TypeStage(bot, user_id)
+        self.program = program
+        self.stage_counter = 0
+        self.stage = self.program[self.stage_counter](
+            bot,
+            user_id, self.record
+        )
 
     def process_message(self, message):
-        self.state.get_response(message, self.record)
-        self.change_state()
+        print(self.stage.__dict__)
+        self.stage.get_response(message)
+        self.change_stage()
 
-    def change_state(self):
-        if self.state.next:
-            self.state = self.state.next(self.bot, self.user_id)
+    def change_stage(self):
+        if self.stage_counter < (len(self.program) - 1):
+            self.stage_counter += 1
+            self.stage = self.program[self.stage_counter](
+                bot=self.bot,
+                user_id=self.user_id,
+                record=self.record
+            )
         else:
             self.save_record()
             self.stop_process()

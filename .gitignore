@@ -2,4 +2,6 @@
 .env
 bot_logs.log*
 .idea*
-/__pycache__/
+__pycache__/
+*.py[cod]
+*$py.class

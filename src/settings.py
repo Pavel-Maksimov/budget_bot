@@ -16,7 +16,6 @@ DB_USER = os.environ.get('DB_USER')
 DB_PASSWORD = os.environ.get('DB_PASSWORD')
 
 RECORD_TYPES = ["доход", "расход"]
-START_KEYBOARD = '{"keyboard": [[{"text": "доход"}, {"text": "расход"}]],"resize_keyboard": true}'
 INCOME_CATEGORIES = ["зарплата", "другое"]
 OUTCOME_CATEGORIES = [
     "продукты",

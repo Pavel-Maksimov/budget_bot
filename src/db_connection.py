@@ -3,7 +3,7 @@ from datetime import datetime
 
 import psycopg2
 
-from record import Record
+from models import Record
 import settings
 
 
@@ -36,7 +36,7 @@ class Database:
         self.connection.commit()
         cur.close()
 
-    def write_record(self, record: Record):
+    def write_record(self, record: Record) -> None:
         time = datetime.now()
         cur = self.connection.cursor()
         if record.type == 'доход':
