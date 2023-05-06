@@ -9,7 +9,8 @@ class Dispatcher:
         user_id = message["from"]["id"]
         if user_id not in self.started_processes:
             program = [TypeStage, CategoryStage, AmountStage]
-            process = UserProcess(bot, self, user_id, program)
+            process = UserProcess(bot, self, user_id)
+            process.start_program(program)
             self.started_processes[user_id] = process
         else:
             self.started_processes[user_id].process_message(message["text"])

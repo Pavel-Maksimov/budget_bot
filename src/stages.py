@@ -21,7 +21,7 @@ class Stage(ABC):
 
 
 class AmountStage(Stage):
-    keyboard = None
+    keyboard = create_keyboard(1, [])
     message = "Введите сумму"
 
     def __init__(self, bot: Telebot, user_id: int, record: Record):
@@ -75,5 +75,4 @@ class TypeStage(Stage):
         super().__init__(bot, user_id, record)
 
     def get_response(self, response: str):
-        print(self)
         self.record.type = response

@@ -7,7 +7,13 @@ def create_keyboard(columns: int,
                     resize_keyboard: bool = True,
                     one_time_keyboard: bool = True) -> str:
     keyboard = []
-    idx = 0
+    keyboard.append([{"text": "⇦"}])
+    keyboard[0].extend(
+        [
+            {"text": buttons[i]} for i in range(min(columns-1, len(buttons)))
+        ]
+    )
+    idx = columns - 1
     while idx < len(buttons):
         left = idx
         idx += columns
