@@ -6,6 +6,10 @@ def create_keyboard(columns: int,
                     buttons: Collection[str],
                     resize_keyboard: bool = True,
                     one_time_keyboard: bool = True) -> str:
+    """
+    Create a custom keybord with specified buttons.
+    Return it as json-formatted string.
+    """
     keyboard = []
     keyboard.append([{"text": "⇦"}])
     keyboard[0].extend(

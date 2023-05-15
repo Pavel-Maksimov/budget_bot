@@ -3,6 +3,12 @@ from stages import TypeStage, CategoryStage, AmountStage
 
 
 class Dispatcher:
+    """
+    Dispatch messages to started user process or
+     create one of not exists.
+    Delete process from started_processes when correcponding
+    process finishes, for this Observer pattern is used.
+    """
     started_processes = {}
 
     def get_message(self, bot, message):

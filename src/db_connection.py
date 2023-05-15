@@ -8,6 +8,10 @@ import settings
 
 
 class Database:
+    """
+    Represent a database interface and is a singleton.
+    Contain database connection.
+    """
     _instance = None
 
     def __new__(cls):
@@ -24,13 +28,13 @@ class Database:
 
     def read_offset(self) -> Optional[str]:
         cur = self.connection.cursor()
-        cur.execute('select "offset" from bot_offset;')
+        cur.execute('SELECT "offset" FROM bot_offset;')
         return cur.fetchone()[0]
 
     def write_offset(self, value: str) -> None:
         cur = self.connection.cursor()
         cur.execute(
-            'update bot_offset set "offset" = %s;',
+            'UPDATE bot_offset SET "offset" = %s;',
             (value,)
         )
         self.connection.commit()
@@ -41,8 +45,8 @@ class Database:
         cur = self.connection.cursor()
         if record.type == 'доход':
             cur.execute(
-                ('insert into incomes (user_id, amount, category, time) '
-                 'values(%s, %s, %s, %s);'),
+                ('INSERT INTO incomes (user_id, amount, category, time)'
+                 ' VALUES (%s, %s, %s, %s);'),
                 (record.user_id,
                  record.amount,
                  record.category,
@@ -50,8 +54,8 @@ class Database:
             )
         else:
             cur.execute(
-                ('insert into spends (user_id, amount, category, time) '
-                 'values(%s, %s, %s, %s);'),
+                ('INSERT INTO spends (user_id, amount, category, time)'
+                 ' VALUES (%s, %s, %s, %s);'),
                 (record.user_id,
                  record.amount,
                  record.category,
