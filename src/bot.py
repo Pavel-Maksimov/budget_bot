@@ -45,10 +45,12 @@ class Telebot:
     """
     HOST = 'api.telegram.org'
     PORT = 443
-    UPDATE_URL = ('GET /bot{0}/getUpdates?offset={1}&allowed_updates=["message"] HTTP/1.1\r\n'
+    UPDATE_URL = ('GET /bot{0}/getUpdates?offset={1}&allowed_updates='
+                  '["message"] HTTP/1.1\r\n'
                   'Host: api.telegram.org\r\n'
                   'Connection: close\r\n\r\n')
-    SEND_URL = ('GET /bot{0}/sendMessage?chat_id={1}&text={2}&reply_markup={3} HTTP/1.1\r\n'
+    SEND_URL = ('GET /bot{0}/sendMessage?chat_id={1}&text={2}&'
+                'reply_markup={3} HTTP/1.1\r\n'
                 'Host: api.telegram.org\r\n'
                 'Connection: close\r\n\r\n')
 
@@ -83,7 +85,7 @@ class Telebot:
                 break
         mysock.close()
         return response
-    
+
     def check_updates(self):
         cmd = self.UPDATE_URL.format(self.id, self.offset)
         response = self._make_request(cmd)
